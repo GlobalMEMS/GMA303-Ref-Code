@@ -80,6 +80,7 @@ Default initialization actions:
  * Set to continuous mode
  * Turn on low pass filter
  * Set data ready INT, ative high, push-pull
+ 
 You may change the behavior of this initialization function to suit your purpose. Please refer to datasheet for more details on the register settings.
 
 ## Usage of AutoNil
