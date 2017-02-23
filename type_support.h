@@ -6,9 +6,7 @@
  *
  * File : type_support.h
  *
- * Date : 2016/07/21
- *
- * Revision : 1.0.0
+ * Date : 2016/09/23
  *
  * Usage: Define various support type
  *
@@ -34,26 +32,40 @@
 #ifndef __TYPE_SUPPORT_H__
 #define __TYPE_SUPPORT_H__
 
+#include <stdint.h>
+
 /*signed integer types*/
-typedef	signed char  s8;
-typedef	signed short int s16;
-typedef	signed int s32;
-typedef	signed long int s64;
+typedef	int8_t  s8;
+typedef	int16_t s16;
+typedef	int32_t s32;
+typedef	int64_t s64;
 
 /*unsigned integer types*/
-typedef	unsigned char u8;
-typedef	unsigned short int u16;
-typedef	unsigned int u32;
-typedef	unsigned long int u64;
+typedef	uint8_t u8;
+typedef	uint16_t u16;
+typedef	uint32_t u32;
+typedef	uint64_t u64;
 
 typedef union {
-   struct{
-      s32 x;
-      s32 y;
-      s32 z;
-			s32 t;
-   } u;
-   s32 v[4];
+  struct{
+    s32 x;
+    s32 y;
+    s32 z;
+    s32 t;
+  } u;
+  s32 v[4];
 } raw_data_xyzt_t;
+
+typedef union {
+  struct{
+    float x;
+    float y;
+    float z;
+    float t;
+  } u;
+  float v[4];
+} float_xyzt_t;
+
+typedef enum {X_AXIS = 1, Y_AXIS = 2, Z_AXIS = 4} m_axis_t;
 
 #endif //__TYPE_SUPPORT_H__

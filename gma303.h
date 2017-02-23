@@ -142,14 +142,14 @@ typedef enum {GMA303_OP_MODE_STANDBY, GMA303_OP_MODE_SUSPEND, GMA303_OP_MODE_CM,
 typedef enum {GMA303_ODR_NCM_1, GMA303_ODR_NCM_2, GMA303_ODR_NCM_4, GMA303_ODR_NCM_8, GMA303_ODR_NA} GMA303_ODR_T;
 typedef enum {GMA303_OSM_64, GMA303_OSM_32, GMA303_OSM_16} GMA303_OSM_T;
 
-#define GMA303_GET_BITSLICE(regvar, bitname)\
-((regvar & bitname##__MSK) >> bitname##__POS)
+#define GMA303_GET_BITSLICE(regvar, bitname)	\
+  ((regvar & bitname##__MSK) >> bitname##__POS)
 
-#define GMA303_SET_BITSLICE(regvar, bitname, val)\
-((regvar & ~bitname##__MSK) | ((val<<bitname##__POS)&bitname##__MSK))
+#define GMA303_SET_BITSLICE(regvar, bitname, val)			\
+  ((regvar & ~bitname##__MSK) | ((val<<bitname##__POS)&bitname##__MSK))
 
 
- /*!
+/*!
  * @brief Read multiple data from the starting regsiter address
  *
  * @param u8Addr Starting register address

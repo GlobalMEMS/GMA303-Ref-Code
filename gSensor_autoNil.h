@@ -6,9 +6,7 @@
  *
  * File : gSensor_autoNil.h
  *
- * Date : 2016/09/09
- *
- * Revision : 1.0.1
+ * Date : 2016/10/04
  *
  * Usage: g-Sensor AutoNil calibration header
  *
@@ -45,12 +43,15 @@
 //AutoNil g-sensor data reading will be averaged
 #define DATA_AVE_NUM 32
 
+//g-sensor data will be continuously polling by the interval
+#define POLLING_INTERVAL_MS 10
+
 enum {AUTONIL_X = 0, AUTONIL_Y = 1, AUTONIL_Z = 2, AUTONIL_POSITIVE = 0x10, AUTONIL_NEGATIVE = 0x20, AUTONIL_AUTO = 0x40};
 
 typedef s8(*read_data_xyz_fcn_t)(raw_data_xyzt_t*);
 
- /*!
- * @brief Auto estimate the g-sensor offset. 
+/*!
+ * @brief Auto estimate the g-sensor offset (int32).
  * @brief It is assumed the g-sensor is positioned statically in level when executed this function with one of the axes
  * @brief aligned along the gravity.
  *
@@ -63,7 +64,7 @@ typedef s8(*read_data_xyz_fcn_t)(raw_data_xyzt_t*);
  *                AUTONIL_POSITIVE + AUTONIL_Z: postive Z-axis is algined with the gravity
  *                AUTONIL_NEGATIVE + AUTONIL_Z: negative Z-axis is algined with the gravity
  * @param outputCodePerG sensor output code per 1g gravity (the sensitivity)
- * @param poffset The estimated sensor offset
+ * @param poffset The estimated sensor offset (int32)
  *
  * @return 0 for Success
  * @return 1 for other errors
@@ -71,6 +72,29 @@ typedef s8(*read_data_xyz_fcn_t)(raw_data_xyzt_t*);
  * @retval -127 Error null bus
  */
 s8 gSensorAutoNil(read_data_xyz_fcn_t data_fcn, u8 dir, s32 outputCodePerG, raw_data_xyzt_t* poffset);
+
+/*!
+ * @brief Auto estimate the g-sensor offset (float). 
+ * @brief It is assumed the g-sensor is positioned statically in level when executed this function with one of the axes
+ * @brief aligned along the gravity.
+ *
+ * @param data_fcn The data function pointer to read the g-sensor XYZ datas
+ * @param dir direction the g-sensor is aligned
+ *            AUTONIL_POSITIVE/AUTONIL_NEGATIVE: specify the positive/negative axis direction that is aligned with the gravity
+ *            AUTONIL_AUTO: automotic identify the positive/negative axis direction that is aligned with the gravity
+ *            AUTONIL_X/Y/Z: specify the axis
+ *            ex: AUTONIL_AUTO + AUTONIL_Z: Z-axis is aligned with the gravity, auto sign identification
+ *                AUTONIL_POSITIVE + AUTONIL_Z: postive Z-axis is algined with the gravity
+ *                AUTONIL_NEGATIVE + AUTONIL_Z: negative Z-axis is algined with the gravity
+ * @param outputCodePerG sensor output code per 1g gravity (the sensitivity)
+ * @param poffset The estimated sensor offset (float)
+ *
+ * @return 0 for Success
+ * @return 1 for other errors
+ * @retval -1 Bus communication error
+ * @retval -127 Error null bus
+ */
+s8 gSensorAutoNil_f(read_data_xyz_fcn_t data_fcn, u8 dir, s32 outputCodePerG, float_xyzt_t* poffset);
  
 #endif //__GSENSOR_AUTONIL_H__
 
