@@ -6,11 +6,11 @@
  *
  * File : gma303.c
  *
- * Date : 2016/09/09
+ * Date : 2017/06/06
  *
- * Revision : 1.0.1
+ * Revision : 
  *
- * Usage: GMA303 sensor driver file
+ * Usage: GMA303KU sensor driver file
  *
  ****************************************************************************
  * 
@@ -581,7 +581,10 @@ s8 _gma303_read_data(raw_data_xyzt_t* pxyzt, u8 dLen){
     s16Tmp = (u8Data[2*i + 4] << 8) | (u8Data[2*i + 3]);
     pxyzt->v[i] = s16Tmp;
   }
-	
+
+  //GMA303KU z-axis sensitivty normalized
+  pxyzt->u.z <<= 1;
+
  EXIT:
   return comRslt;
 	
